@@ -11,17 +11,17 @@
   </statistics-service>
   <threats>
     <recurring>
-      <every-30-mins>
-        <at>2</at>
+      <daily>
+        <at>00:00</at>
         <action>download-and-install</action>
-      </every-30-mins>
+      </daily>
       <threshold>48</threshold>
     </recurring>
   </threats>
   <anti-virus>
     <recurring>
       <hourly>
-        <at>4</at>
+        <at>3</at>
         <action>download-and-install</action>
       </hourly>
     </recurring>
@@ -43,40 +43,17 @@
 </snmp-setting>
 <dns-setting>
   <servers>
-    <primary>{{ DNS_1 }}</primary>
-    <secondary>{{ DNS_2 }}</secondary>
+    <primary>4.2.2.2</primary>
+    <secondary>8.8.8.8</secondary>
   </servers>
 </dns-setting>
 <ntp-servers>
   <primary-ntp-server>
-    <ntp-server-address>{{ NTP_1 }}</ntp-server-address>
+    <ntp-server-address>0.pool.ntp.org</ntp-server-address>
   </primary-ntp-server>
   <secondary-ntp-server>
-    <ntp-server-address>{{ NTP_2 }}</ntp-server-address>
+    <ntp-server-address>1.pool.ntp.org</ntp-server-address>
   </secondary-ntp-server>
 </ntp-servers>
-<login-banner>You have accessed a protected system.
-Log off immediately if you are not an authorized user.</login-banner>
+<login-banner>Gold 1.0 - PANOS 8.0</login-banner>
 <timezone>UTC</timezone>
-<hostname>{{ FW_NAME }}</hostname>
-{%- if MGMT_TYPE == "static" %}
-<type>
-  <static/>
-</type>
-<ip-address>{{ MGMT_IP }}</ip-address>
-<netmask>{{ MGMT_MASK }}</netmask>
-<default-gateway>{{ MGMT_DG }}</default-gateway>
-{% elif MGMT_TYPE == "dhcp-cloud" %}
-<type>
-   <dhcp-client>
-     <send-hostname>yes</send-hostname>
-     <send-client-id>no</send-client-id>
-     <accept-dhcp-hostname>no</accept-dhcp-hostname>
-     <accept-dhcp-domain>no</accept-dhcp-domain>
-   </dhcp-client>
-</type>
-{% else %}
-<type>
-  <dhcp-client/>
-</type>
-{% endif %}
